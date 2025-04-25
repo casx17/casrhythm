@@ -9,6 +9,8 @@ end
 
 function Notepads:Draw()
     for i = 1, keys do
+
+        
         
         local notepadRadius = padsWidth/keys * 0.4
         if notepadRadius > 27 then

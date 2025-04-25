@@ -5,25 +5,21 @@ function saveSong(directory, chart, metadata)
     local toWrite = ""
 
     --make new folder with name of song
-    love.filesystem.createDirectory(directory)
+    love.filesystem.createDirectory("songs/" .. directory)
 
     --encode chart
-    toWrite = require('string.buffer').encode(chart)
-    love.filesystem.write(directory .. "/chart.txt", toWrite)
+    SaveEncodedFile("songs/" .. directory .. "/chart.txt", chart)
 
     --encode metadata
-    toWrite = SaveData(metadata)
-    love.filesystem.write(directory .. "/metadata.txt", toWrite)
+    SaveEncodedFile("songs/" .. directory .. "/metadata.txt", metadata)
 end
 
 function loadSong(directory)
     local toRead = ""
     
     --get chart and decode
-    toRead = love.filesystem.read(directory .. "/chart.txt")
-    Song.chart = LoadData(toRead)
+    Song.chart = LoadDecodedFile("songs/" .. directory .. "/chart.txt")
 
     --get metadata and decode
-    toRead = love.filesystem.read(directory .. "/metadata.txt")
-    Song.metadata = LoadData(toRead)
+    Song.metadata = LoadDecodedFile("songs/" .. directory .. "/metadata.txt")
 end
