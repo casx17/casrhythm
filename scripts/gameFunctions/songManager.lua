@@ -4,6 +4,13 @@ Song.playing = false
 BPM = nil
 SONGLENGTH = nil
 
+RATINGS = {}
+RATINGS[1] = 0
+RATINGS[2] = 0
+RATINGS[3] = 0
+RATINGS[4] = 0
+RATINGS[5] = 0
+
 require("scripts/metronome")
 
 function Song:Start(song)
@@ -17,10 +24,12 @@ function Song:Start(song)
     print("scroll speed: " .. Song.metadata.scrollspeed)
     print("description: " .. Song.metadata.description)
 
+    --settings stuffs
     BPM = Song.metadata.bpm
     Song.beat = 0
     Song.step = 0
 
+    --spawn notepads
     Notepads:Init()
 
     --audio handling
@@ -28,11 +37,19 @@ function Song:Start(song)
     local soundData = love.sound.newSoundData("songs/" .. song .. "/song.ogg")
     local toPlay = love.audio.newSource(source, "stream")
 
+    --duration
     SONGLENGTH = soundData:getDuration()
 
+    --yea
     print("song length: " .. SONGLENGTH)
 
-    --cool stuff
+    --set hit flags to false so none of the notes think theyve already been hit
+    for i, v in ipairs(Song.chart) do
+        v.hitFlag = false
+        v.missFlag = false
+    end
+
+    --actually start
     Song.elapsed = 0
     Song.playing = true
     love.audio.play(toPlay)

@@ -1,8 +1,8 @@
 posbar = {}
-posbar.w = WindowSize.x/1.075
+posbar.w = WindowSize.x/1.025
 posbar.h = 12
 posbar.x = WindowSize.x/2 - posbar.w/2
-posbar.y = WindowSize.y/2 - posbar.h/2 + 270
+posbar.y = WindowSize.y/2 - posbar.h/2 + 525
 
 function drawPosBar()
     love.graphics.setColor(0, 0, 0, 1)

@@ -8,32 +8,35 @@ for i, v in pairs(love.filesystem.getDirectoryItems("scripts/gameFunctions")) do
     require("scripts/gameFunctions/" .. string.sub(v, 1, string.len(v) - 4))
 end
 
-require("scripts/metronome")
+--require("scripts/metronome")
 
 function love.load()
     love.window.setMode(WindowSize.x, WindowSize.y, {resizable=true})
     
+    --reset chart to fallback (hardcoded)
     chart = {}
+    table.insert(chart, 1, {type = 1, step = 9})
+    table.insert(chart, 1, {type = 3, step = 16})
+    table.insert(chart, 1, {type = 1, step = 8})
+    table.insert(chart, 1, {type = 2, step = 10})
 
-    chart.note1 = {}
-    chart.note1.type = 1
-    chart.note1.step = 8
-
-    chart.note2 = {}
-    chart.note2.type = 3
-    chart.note2.step = 16
-
+    --reset metadata to fallback (also hardcoded)
     metadata = {}
     metadata.name = "Test Song"
     metadata.artist = "cas"
     metadata.keys = 4
     metadata.bpm = 100
-    metadata.scrollspeed = 30
+    metadata.scrollspeed = 90
     metadata.description = "cool song!!"
     
+    --save and load song (for debugging)
     saveSong("testsong", chart, metadata)
     loadSong("testsong")
 
+    --init rating images
+    ratingImagesInit()
+
+    --actually start the song
     Song:Start("testsong")
 end
 
@@ -44,6 +47,7 @@ function love.update(delta)
 
     if Song.playing then
         Song:Update(delta)
+        updateRating()
     end
 
     --caps fps
@@ -61,9 +65,20 @@ function love.draw()
         Notes:Draw()
         Notepads:Draw()
 
+        love.graphics.print(
+
+            "perfects: " .. RATINGS[5] .. "\n" .. 
+            "greats: " .. RATINGS[4] .. "\n" ..
+            "goods: " .. RATINGS[3] .. "\n" ..
+            "bads: " .. RATINGS[2] .. "\n" ..
+            "misses: " .. RATINGS[1] .. "\n"
+
+        , 0, 0, 0, 1.8, 1.8)
+
+        drawRating()
+
         love.graphics.setLineWidth(1.5)
 
-        drawMetronome()
         drawPosBar()
     end
 
@@ -75,4 +90,16 @@ function Sleep(delta)
     --cap fps
     local s = 1/FPSCAP - delta
     if s > 0 then love.timer.sleep(s) end
+end
+
+function love.keypressed(key, scancode, isrepeat)
+    if Song.playing then
+        Notes:Keypressed(key)
+    end
+end
+
+function love.keyreleased(key, scancode)
+    if Song.playing then
+        Notes:Keyreleased(key)
+    end
 end

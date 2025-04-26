@@ -29,4 +29,3 @@ function FlattenVector2(tab)
     end
     return t
 end
-

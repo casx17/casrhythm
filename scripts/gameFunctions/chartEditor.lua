@@ -4,6 +4,9 @@
 function saveSong(directory, chart, metadata)
     local toWrite = ""
 
+    --sort chart
+    chart = sortChartByStep(chart)
+
     --make new folder with name of song
     love.filesystem.createDirectory("songs/" .. directory)
 

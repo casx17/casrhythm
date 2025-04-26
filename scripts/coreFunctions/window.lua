@@ -1,6 +1,6 @@
 WindowSize = {}
-WindowSize.x = 900
-WindowSize.y = 600
+WindowSize.x = 1920
+WindowSize.y = 1080
 
 --[[FOR IT TO WORK:
 

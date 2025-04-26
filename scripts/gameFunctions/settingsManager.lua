@@ -7,3 +7,5 @@ Settings.keybinds[3] = "l"
 Settings.keybinds[4] = ";"
 
 Settings.downscroll = true
+
+Settings.botplay = false

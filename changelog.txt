@@ -1,0 +1,29 @@
+1.
+    (4/26/25) awesome first changelog yea
+
+    [i started the project on 4/21/25-
+    i thought that was probably important to mention but i couldnt figure out where to put it so its going here]
+
+    this is the first changelog!! this is the first time ive had just a fully working game and everything so
+    i felt like this would be a good time to write a changelog.
+
+    i cant put everything i made in a sentence so ill be doing bullets
+
+        - test song for testing stuffs
+        - a cool system where charts, metadata and songs are saved to your appdata
+        - a song manager that handles charts, metadata, playing the music, etc
+        - saving and loading charts and metadata
+        - automatic chart sorting to put notes that come first FIRST in the chart table
+        - number to time converter (takes number in seconds and turns it into 0:00 minute format)
+        - cool notepads that resize when you press them
+        - ACTUAL FALLING NOTES (that arrive on time regardless of scroll speed)
+        - settings manager (keybinds, downscroll, and botplay so far)
+        - INPUT based on the keybinds
+        - a ratings system with a table full of editable timing windows
+        - a song position bar
+
+    the next big goal is for sure the chart editor
+    but that probably wont take super long COMPARED to everything else
+    itll still probably take forever though
+
+    anyway im writing this at like 5am so im going to bed byebye
