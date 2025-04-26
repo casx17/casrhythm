@@ -13,7 +13,10 @@ WindowSize.y = 1080
     AFTER EVERYTHING HAS BEEN DRAWN (at the end of the draw function) CALL "BlackBars()"
 ]]
 
-local scale
+scale = 1
+offsetX = 0
+offsetY = 0
+
 local realWidth, realHeight
 
 function WindowUpdate()
@@ -26,6 +29,9 @@ end
 function WindowDraw()
     love.graphics.scale(scale)
     love.graphics.translate((realWidth - WindowSize.x * scale) / scale / 2, (realHeight - WindowSize.y * scale) / scale / 2)
+
+    offsetX = (realWidth - WindowSize.x * scale) / scale / 2
+    offsetY = (realHeight - WindowSize.y * scale) / scale / 2
 
 end
 

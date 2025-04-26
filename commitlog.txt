@@ -1,10 +1,22 @@
+2.
+    (4/26/25) (again)
+    
+    pretty cool stuff with the settings and chart editor added oh yeah
+
+        -downscroll + upscroll both work now + botplay
+        -better rating system + tighter input
+        -chart editor tiles with HUGE help from baglman
+        -mouse collision with some object
+
+-----
+
 1.
     (4/26/25) awesome first changelog yea
 
     [i started the project on 4/21/25-
     i thought that was probably important to mention but i couldnt figure out where to put it so its going here]
 
-    this is the first changelog!! this is the first time ive had just a fully working game and everything so
+    this is the first changelog!! its the first time ive had just a fully working game and everything so
     i felt like this would be a good time to write a changelog.
 
     i cant put everything i made in a sentence so ill be doing bullets
@@ -27,3 +39,5 @@
     itll still probably take forever though
 
     anyway im writing this at like 5am so im going to bed byebye
+
+-----

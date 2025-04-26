@@ -23,11 +23,13 @@ function Notepads:Draw()
         if Settings.downscroll then
             notepadY = WindowSize.y - 100
         else
-            notepadY = WindowSize.y - 500
+            notepadY = 100
         end
 
-        if love.keyboard.isDown(Settings.keybinds[i]) then
-            notepadRadius = notepadRadius * 0.93
+        if not Settings.botplay then
+            if love.keyboard.isDown(Settings.keybinds[i]) then
+                notepadRadius = notepadRadius * 0.93
+            end
         end
 
         love.graphics.setColor(1, 1, 1, 1)

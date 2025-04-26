@@ -1,5 +1,8 @@
 local FPSCAP = 60
 
+MouseX = 0
+MouseY = 0
+
 for i, v in pairs(love.filesystem.getDirectoryItems("scripts/coreFunctions")) do
     require("scripts/coreFunctions/" .. string.sub(v, 1, string.len(v) - 4))
 end
@@ -13,6 +16,8 @@ end
 function love.load()
     love.window.setMode(WindowSize.x, WindowSize.y, {resizable=true})
     
+    fileSetup()
+
     --reset chart to fallback (hardcoded)
     chart = {}
     table.insert(chart, 1, {type = 1, step = 9})
@@ -45,6 +50,9 @@ function love.update(delta)
     --get window width
     WindowWidth, WindowHeight = love.window.getMode()
 
+    updateMouse()
+    updateChartEditor()
+
     if Song.playing then
         Song:Update(delta)
         updateRating()
@@ -59,6 +67,9 @@ function love.draw()
     love.graphics.setColor(1, 1, 1, 1)
 
     --actually draw stuff
+
+    drawChartEditor()
+
     if Song.playing then
         love.graphics.setLineWidth(1)
         
@@ -102,4 +113,8 @@ function love.keyreleased(key, scancode)
     if Song.playing then
         Notes:Keyreleased(key)
     end
+end
+
+function love.wheelmoved(x, y)
+    chartEditorWheelmoved(x, y)
 end

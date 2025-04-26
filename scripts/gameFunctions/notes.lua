@@ -15,14 +15,13 @@ local noteY
 local canHit = {true, true, true, true}
 
 --time you have to hit notes around its goal position / step
-local leniency = 1.2
+local leniency = 0.9
 
 --timing windows for rating / if you want certain ratings to be easier or harder, change these
-local ratingWindows = {}
-ratingWindows[1] = 1.2
-ratingWindows[2] = 0.9
-ratingWindows[3] = 0.6
-ratingWindows[4] = 0.3
+local ratingWindows = {0.9, 0.65, 0.45, 0.2}
+
+--notesound stuffs
+noteSound = love.audio.newSource("notesounds/osu.ogg", "static")
 
 function Notes:Draw()
     for i, v in ipairs(Song.chart) do
@@ -36,23 +35,24 @@ function Notes:Draw()
             noteRadius = 42
         end
 
-        --set note positions
+        --set note x
         noteX = ((v.type - 1) * padsWidth/keys + WindowSize.x/2) - (keys - 1) * (padsWidth/keys)/2
         
+        --get unfiltered step without rounding
+        rawStep = Song.elapsed/(15/BPM)
+
         --put notepads low if downscroll, else high
         if Settings.downscroll then
             notepadY = WindowSize.y - 100
+            noteY = notepadY - (v.step - rawStep) * Song.metadata.scrollspeed
         else
-            notepadY = WindowSize.y - 500
+            notepadY = 100
+            noteY = notepadY + (v.step - rawStep) * Song.metadata.scrollspeed
         end
-        
-        --make the notes actually fall
-        rawStep = Song.elapsed/(15/BPM)
-        noteY = notepadY - (v.step - rawStep) * Song.metadata.scrollspeed
 
         --botplay (auto-hit notes)
         if Settings.botplay then
-            if Song.step == v.step and v.hitFlag == false then
+            if Song.step == v.step and not v.hitFlag then
                 v.hitFlag = true
                 print("note hit strumline")
             end
@@ -67,6 +67,7 @@ function Notes:Draw()
         --dont draw notes if theyve been hit or missed or are off screen or whatever
         if not v.hitFlag then
             if (noteY <= WindowSize.y) and (noteY >= WindowSize.y * -1) then
+                love.graphics.setColor(1, 1, 1, 1)
                 love.graphics.circle("fill", noteX, noteY, noteRadius)
             end
         end
@@ -77,7 +78,7 @@ function Notes:Keypressed(key)
     if not Settings.botplay then
         for i, v in ipairs(Song.chart) do
             --if you hit a keybind, the note hasnt already been hit, and youre actually able to hit the note
-            if key == Settings.keybinds[v.type] and not v.hitFlag and canHit[v.type] == true then
+            if key == Settings.keybinds[v.type] and not v.hitFlag and canHit[v.type] then
                 
                 --if the distance between the current song time and when the note is supposed to arrive is within a certain window (leniency), hit
                 if math.abs(v.step - rawStep) <= leniency then
@@ -123,6 +124,7 @@ end
 function Notes:Hit(rating)
     print("note hit - rating: " .. rating)
     setRating(rating)
+    love.audio.play(noteSound)
     return
 end
 
