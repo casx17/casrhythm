@@ -66,7 +66,7 @@ function Notes:Draw()
 
         --dont draw notes if theyve been hit or missed or are off screen or whatever
         if not v.hitFlag then
-            if (noteY <= WindowSize.y) and (noteY >= WindowSize.y * -1) then
+            if isOnScreen(noteX, noteY, noteRadius, noteRadius) then
                 love.graphics.setColor(1, 1, 1, 1)
                 love.graphics.circle("fill", noteX, noteY, noteRadius)
             end

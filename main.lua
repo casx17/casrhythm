@@ -118,3 +118,11 @@ end
 function love.wheelmoved(x, y)
     chartEditorWheelmoved(x, y)
 end
+
+function isOnScreen(x, y, width, height)
+    if ((x - width <= WindowSize.x) and (x + width >= 0)) and ((y - height <= WindowSize.y) and (y + height >= 0)) then
+        return true
+    else
+        return false
+    end
+end
